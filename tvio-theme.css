@@ -1,0 +1,192 @@
+/*
+  T.vio Theme CSS
+  Includes both dark mode and vibrant light mode.
+  Fonts: Sora for headings/logo, Inter for body/UI.
+*/
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Sora:wght@600;700;800&display=swap");
+
+:root {
+  /* Core Palette */
+  --color-navy: #080B1A;
+  --color-navy-mid: #0E1228;
+  --color-navy-card: #111629;
+  --color-preview-dark: #0A0D1F;
+
+  --color-orange: #F5A623;
+  --color-green: #6EE24A;
+  --color-white: #FFFFFF;
+
+  /* Soft Accent Tints */
+  --color-orange-dim: rgba(245, 166, 35, 0.12);
+  --color-green-dim: rgba(110, 226, 74, 0.12);
+
+  /* Dark Mode Support */
+  --color-muted-white: rgba(255, 255, 255, 0.45);
+  --color-soft-white: rgba(255, 255, 255, 0.72);
+  --color-faint-white: rgba(255, 255, 255, 0.18);
+  --color-navy-line: rgba(255, 255, 255, 0.07);
+
+  /* Dark Mode Tokens */
+  --bg: var(--color-navy);
+  --bg-soft: var(--color-navy-mid);
+  --card: rgba(255, 255, 255, 0.045);
+  --card-strong: var(--color-navy-card);
+  --border: var(--color-navy-line);
+
+  --text: var(--color-white);
+  --muted: var(--color-muted-white);
+  --muted-2: var(--color-soft-white);
+
+  --primary: var(--color-orange);
+  --secondary: var(--color-green);
+
+  --cta: var(--color-orange);
+  --cta-text: var(--color-navy);
+
+  --shadow: 0 24px 80px rgba(0, 0, 0, 0.52);
+
+  --font-heading: "Sora", "Inter", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  --radius: 24px;
+}
+
+/* Vibrant Light Mode */
+body.light-mode {
+  --bg: #FFF8EE;
+  --bg-soft: #FFFDF8;
+  --card: rgba(255, 255, 255, 0.78);
+  --card-strong: #FFFFFF;
+  --border: rgba(245, 166, 35, 0.16);
+
+  --text: #0E1228;
+  --muted: rgba(14, 18, 40, 0.58);
+  --muted-2: rgba(14, 18, 40, 0.78);
+
+  --primary: #E89513;
+  --secondary: #58C83A;
+
+  --cta: #E89513;
+  --cta-text: #0E1228;
+
+  --shadow: 0 18px 48px rgba(14, 18, 40, 0.10);
+}
+
+body {
+  font-family: var(--font-body);
+  background:
+    radial-gradient(circle at 10% 0%, var(--color-green-dim), transparent 34%),
+    radial-gradient(circle at 88% 12%, var(--color-orange-dim), transparent 28%),
+    var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  transition: background 0.25s ease, color 0.25s ease;
+}
+
+body.light-mode {
+  background:
+    radial-gradient(circle at 8% 0%, rgba(245, 166, 35, 0.18), transparent 32%),
+    radial-gradient(circle at 92% 10%, rgba(110, 226, 74, 0.14), transparent 28%),
+    radial-gradient(circle at 50% 100%, rgba(245, 166, 35, 0.08), transparent 30%),
+    linear-gradient(180deg, #FFF8EE 0%, #FFFDF8 100%);
+}
+
+body.light-mode .nav {
+  background: rgba(255, 248, 238, 0.82);
+  border-bottom: 1px solid rgba(245, 166, 35, 0.14);
+  box-shadow: 0 10px 30px rgba(14, 18, 40, 0.04);
+}
+
+body.light-mode .btn-primary {
+  background: linear-gradient(135deg, #F5A623, #F1B548);
+  color: #0E1228;
+  box-shadow: 0 16px 34px rgba(245, 166, 35, 0.24);
+}
+
+body.light-mode .btn-secondary {
+  background: rgba(255, 255, 255, 0.88);
+  color: var(--text);
+  border-color: rgba(245, 166, 35, 0.18);
+  box-shadow: 0 10px 24px rgba(14, 18, 40, 0.05);
+}
+
+body.light-mode .btn-secondary:hover {
+  background: #FFFFFF;
+  border-color: rgba(245, 166, 35, 0.26);
+}
+
+body.light-mode .card,
+body.light-mode .meta-card,
+body.light-mode .timeline-item,
+body.light-mode .screenshot-placeholder {
+  background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(255,252,246,0.94));
+  border: 1px solid rgba(245, 166, 35, 0.14);
+  box-shadow: 0 16px 40px rgba(14, 18, 40, 0.08);
+}
+
+body.light-mode .metric,
+body.light-mode .project-stat,
+body.light-mode .feature-point,
+body.light-mode .tech-list span,
+body.light-mode .tech-stack span {
+  background: rgba(245, 166, 35, 0.08);
+  border-color: rgba(245, 166, 35, 0.16);
+}
+
+body.light-mode .eyebrow,
+body.light-mode .section-kicker {
+  color: #C97900;
+}
+
+body.light-mode .eyebrow {
+  background: rgba(245, 166, 35, 0.08);
+  border-color: rgba(245, 166, 35, 0.16);
+}
+
+body.light-mode .hero::before,
+body.light-mode .case-hero::before {
+  background:
+    radial-gradient(circle at 50% 50%, rgba(245, 166, 35, 0.18), transparent 0 34%, transparent 54%),
+    radial-gradient(circle at 50% 50%, rgba(110, 226, 74, 0.14), transparent 0 22%, transparent 48%);
+  opacity: 1;
+  filter: blur(10px);
+}
+
+body.light-mode .hero::after,
+body.light-mode .case-hero::after,
+body.light-mode .about-card::before,
+body.light-mode .case-preview::before {
+  opacity: 0.22;
+}
+
+body.light-mode .abstract-row,
+body.light-mode .preview-row {
+  background: linear-gradient(135deg, rgba(255,255,255,0.92), rgba(255,249,240,0.88));
+  border-color: rgba(245, 166, 35, 0.14);
+}
+
+body.light-mode .about-card,
+body.light-mode .case-preview {
+  background:
+    radial-gradient(circle at 24% 22%, rgba(245, 166, 35, 0.14), transparent 28%),
+    radial-gradient(circle at 78% 18%, rgba(110, 226, 74, 0.14), transparent 32%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(255, 249, 237, 0.94));
+}
+
+body.light-mode .cta-box {
+  background:
+    radial-gradient(circle at 50% 0%, rgba(245, 166, 35, 0.14), transparent 42%),
+    linear-gradient(180deg, rgba(255,255,255,0.96), rgba(255,252,246,0.94));
+  border-color: rgba(245, 166, 35, 0.14);
+}
+
+body.light-mode .screenshot-placeholder {
+  background:
+    linear-gradient(135deg, rgba(245, 166, 35, 0.10), transparent 38%),
+    linear-gradient(225deg, rgba(110, 226, 74, 0.10), transparent 38%),
+    linear-gradient(180deg, #FFFFFF, #FFFAF2);
+}

@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- TODO: Update title → "[Project Name] Case Study — T.vio" -->
+  <title>[Project Name] Case Study — T.vio</title>
+  <!-- TODO: Update meta description -->
+  <meta name="description" content="A T.vio case study — [one sentence about the project]." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
+
+  <link rel="icon" type="image/png" href="../img/tvio logo.jpeg">
+  <link rel="stylesheet" href="../tvio-theme.css" />
+  <link rel="stylesheet" href="../style.css" />
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+    h1, h2, h3, p, li { text-wrap: pretty; }
+    h1, h2, h3 { font-family: var(--font-heading); text-wrap: balance; }
+    .headline-line { display: block; }
+    .hero-lockup .headline-line { white-space: nowrap; }
+    .container { width: min(1120px, calc(100% - 40px)); margin: 0 auto; }
+
+    .nav {
+      position: sticky; top: 0; z-index: 50;
+      backdrop-filter: blur(18px);
+      background: rgba(8, 11, 26, 0.82);
+      border-bottom: 1px solid var(--border);
+      transition: background 0.25s ease, border-color 0.25s ease;
+    }
+    body.menu-open { overflow: hidden; }
+    .nav-inner { min-height: 82px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .logo { display: inline-flex; align-items: center; color: var(--text); font-family: var(--font-heading); font-size: 2.15rem; font-weight: 800; line-height: 1; }
+    .logo-accent { color: var(--primary); }
+    .nav-links { display: flex; align-items: center; gap: 30px; color: var(--muted-2); font-size: 0.93rem; font-weight: 600; }
+    .nav-links a { position: relative; padding: 8px 0; transition: color 0.2s ease; }
+    .nav-links a::after { content: ""; position: absolute; left: 0; right: 0; bottom: 2px; height: 2px; border-radius: 999px; background: var(--primary); transform: scaleX(0); transform-origin: center; transition: transform 0.2s ease; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-links a:hover::after { transform: scaleX(1); }
+    .nav-actions { display: flex; align-items: center; gap: 10px; }
+
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 46px; padding: 0 18px; white-space: nowrap; border-radius: 999px; border: 1px solid transparent; font-weight: 800; font-size: 0.94rem; transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease; cursor: pointer; }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary { background: var(--cta); color: var(--cta-text); box-shadow: 0 18px 40px rgba(245, 166, 35, 0.18); }
+    .btn-secondary { background: rgba(255, 255, 255, 0.04); border-color: var(--border); color: var(--text); }
+
+    .btn-icon, .theme-icon, .menu-icon, .close-icon, .section-icon svg, .check-icon {
+      width: 16px; height: 16px; stroke: currentColor; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round;
+    }
+    .theme-toggle, .mobile-menu-toggle { width: 40px; height: 40px; display: inline-grid; place-items: center; border-radius: 999px; border: 1px solid var(--border); background: transparent; color: var(--muted-2); cursor: pointer; transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease, color 0.2s ease; }
+    .theme-toggle:hover, .mobile-menu-toggle:hover { transform: translateY(-1px); background: rgba(255, 255, 255, 0.055); color: var(--text); border-color: var(--color-faint-white); }
+    .mobile-menu-toggle { display: none; }
+    .close-icon, .moon-icon { display: none; }
+    body.menu-open .menu-icon, body.light-mode .sun-icon { display: none; }
+    body.menu-open .close-icon, body.light-mode .moon-icon { display: block; }
+
+    .case-hero { position: relative; overflow: hidden; padding: 86px 0 72px; }
+    .case-hero::before { content: ""; position: absolute; inset: 16px 0 auto 50%; width: min(780px, 90vw); height: min(780px, 90vw); transform: translateX(-50%); background: radial-gradient(circle at 50% 50%, var(--color-green-dim), transparent 0 34%, transparent 54%), radial-gradient(circle at 50% 50%, var(--color-orange-dim), transparent 0 22%, transparent 48%); filter: blur(8px); opacity: 0.9; pointer-events: none; }
+    .case-hero::after { content: ""; position: absolute; inset: 0; background-image: radial-gradient(var(--color-faint-white) 1px, transparent 1px); background-size: 26px 26px; mask-image: radial-gradient(circle at 50% 18%, black, transparent 68%); pointer-events: none; opacity: 0.45; }
+    .case-hero-grid { position: relative; z-index: 1; display: grid; grid-template-columns: minmax(0, 1fr); gap: 52px; align-items: center; }
+    .case-hero-grid > * { min-width: 0; }
+
+    .eyebrow, .section-kicker { display: inline-flex; align-items: center; gap: 8px; color: var(--primary); font-size: 0.78rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 12px; }
+    .eyebrow { padding: 8px 12px; border-radius: 999px; border: 1px solid var(--border); background: rgba(255, 255, 255, 0.04); color: var(--muted-2); margin-bottom: 22px; }
+    .dot { width: 8px; height: 8px; border-radius: 999px; background: var(--secondary); box-shadow: 0 0 18px rgba(110, 226, 74, 0.55); }
+
+    h1 { font-size: clamp(3.25rem, 6.8vw, 6rem); line-height: 1.02; letter-spacing: -0.035em; font-weight: 800; max-width: 860px; margin-bottom: 24px; }
+    .case-hero p { max-width: 650px; color: var(--muted-2); font-size: 1.18rem; margin-bottom: 32px; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 14px; }
+
+    .meta-strip { position: relative; z-index: 1; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin-top: 36px; }
+    .meta-card, .card, .screenshot-placeholder, .timeline-item { border-radius: var(--radius); background: var(--card); border: 1px solid var(--border); box-shadow: 0 12px 34px rgba(0, 0, 0, 0.2); }
+    .meta-card { padding: 18px; }
+    .meta-card strong { display: block; font-family: var(--font-heading); font-size: 1.05rem; margin-bottom: 3px; }
+    .meta-card span { color: var(--muted); font-size: 0.88rem; }
+
+    section { padding: 88px 0; }
+    .section-header { max-width: 760px; margin-bottom: 40px; }
+    h2 { font-size: clamp(2.25rem, 4vw, 3.45rem); line-height: 1.08; letter-spacing: -0.03em; font-weight: 800; margin-bottom: 16px; }
+    .section-header p, .content-block p, .card p { color: var(--muted-2); font-size: 1.04rem; }
+
+    .content-grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 34px; align-items: start; }
+    .card { padding: 26px; }
+    .card h3 { font-family: var(--font-heading); font-size: 1.2rem; line-height: 1.18; letter-spacing: -0.02em; margin-bottom: 12px; }
+    .card-list { display: grid; gap: 14px; margin-top: 20px; list-style: none; }
+    .card-list li { display: flex; gap: 10px; color: var(--muted-2); }
+    .check-icon { flex: 0 0 auto; color: var(--primary); margin-top: 4px; }
+
+    .screenshots-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+    .screenshot-placeholder { min-height: 280px; overflow: hidden; background: linear-gradient(135deg, var(--color-orange-dim), transparent 38%), linear-gradient(225deg, var(--color-green-dim), transparent 38%), var(--card); }
+    .browser-bar { display: flex; align-items: center; gap: 7px; padding: 14px 16px; border-bottom: 1px solid var(--border); background: rgba(255, 255, 255, 0.025); }
+    .browser-bar span { width: 10px; height: 10px; border-radius: 999px; }
+    .browser-red { background: #FF5F57; } .browser-amber { background: #FEBC2E; } .browser-green { background: #28C840; }
+    .screenshot-body { min-height: 226px; display: grid; place-items: center; padding: 24px; text-align: center; color: var(--muted-2); }
+    .screenshot-body strong { display: block; font-family: var(--font-heading); color: var(--text); font-size: 1.2rem; margin-bottom: 6px; }
+
+    .timeline { display: grid; gap: 18px; counter-reset: steps; }
+    .timeline-item { position: relative; padding: 24px; }
+    .timeline-item::before { counter-increment: steps; content: "0" counter(steps); display: inline-block; color: var(--primary); font-family: var(--font-heading); font-weight: 800; margin-bottom: 18px; }
+    .timeline-item h3 { font-family: var(--font-heading); font-size: 1.12rem; letter-spacing: -0.02em; margin-bottom: 10px; }
+
+    .tech-stack { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
+    .tech-stack span { padding: 8px 11px; border-radius: 999px; background: rgba(255, 255, 255, 0.055); border: 1px solid var(--border); color: var(--muted-2); font-size: 0.78rem; font-weight: 800; letter-spacing: 0.01em; }
+
+    .cta { padding-bottom: 110px; }
+    .cta-box { text-align: center; padding: 64px 28px; border-radius: 38px; border: 1px solid var(--border); background: radial-gradient(circle at 50% 0%, var(--color-orange-dim), transparent 42%), rgba(255, 255, 255, 0.035); box-shadow: var(--shadow); }
+    .cta-box h2 { max-width: 760px; margin-inline: auto; }
+    .cta-box p { max-width: 620px; margin: 0 auto 30px; color: var(--muted-2); font-size: 1.06rem; }
+
+    .footer { border-top: 1px solid var(--border); padding: 28px 0; color: var(--muted); }
+    .footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+    .footer-brand, .footer-links, .footer-socials { display: flex; align-items: center; gap: 12px; }
+    .footer-brand { gap: 16px; font-size: 0.92rem; }
+    .footer-logo { font-size: 1.7rem; }
+    .footer-links { color: var(--muted-2); font-size: 0.92rem; }
+    .social-link { width: 38px; height: 38px; display: inline-grid; place-items: center; border-radius: 999px; border: 1px solid var(--border); background: rgba(255, 255, 255, 0.035); color: var(--muted-2); transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease, border-color 0.2s ease; }
+    .social-link:hover { transform: translateY(-2px); color: var(--text); background: rgba(255, 255, 255, 0.07); border-color: var(--color-faint-white); }
+    .social-link svg { width: 18px; height: 18px; fill: currentColor; }
+
+    @media (max-width: 1080px) {
+      .case-hero-grid, .content-grid { grid-template-columns: 1fr; }
+      .meta-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 860px) {
+      .nav-inner { min-height: 74px; }
+      .nav-links { position: fixed; top: 74px; left: 20px; right: 20px; display: grid; gap: 6px; padding: 16px; border: 1px solid var(--border); border-radius: 22px; background: rgba(8, 11, 26, 0.96); box-shadow: var(--shadow); opacity: 0; visibility: hidden; transform: translateY(-8px); transition: opacity 0.2s ease, visibility 0.2s ease, transform 0.2s ease; }
+      body.light-mode .nav-links { background: rgba(255, 248, 238, 0.96); }
+      body.menu-open .nav-links { opacity: 1; visibility: visible; transform: translateY(0); }
+      .nav-links a { padding: 13px 14px; border-radius: 14px; }
+      .nav-links a::after { display: none; }
+      .mobile-menu-toggle { display: inline-grid; }
+    }
+    @media (max-width: 720px) {
+      .container { width: min(100% - 28px, 1120px); }
+      .case-hero { padding: 68px 0 64px; }
+      h1 { font-size: clamp(2.45rem, 12vw, 3.75rem); line-height: 1.06; }
+      h2 { font-size: clamp(1.9rem, 9vw, 2.65rem); }
+      .case-hero p { font-size: 1.02rem; }
+      .hero-lockup .headline-line, .case-hero p .headline-line { white-space: normal; }
+      .hero-actions, .cta-box .hero-actions { width: 100%; }
+      .hero-actions .btn, .cta-box .btn { flex: 1 1 100%; width: 100%; }
+      .screenshots-grid, .meta-strip { grid-template-columns: 1fr; }
+      .card, .timeline-item { padding: 18px; }
+      section { padding: 68px 0; }
+      .cta-box { padding: 46px 20px; border-radius: 28px; }
+      .footer-inner, .footer-brand, .footer-links { align-items: flex-start; flex-direction: column; }
+    }
+    @media (max-width: 520px) {
+      .container { width: min(100% - 22px, 1120px); }
+      .logo { font-size: 1.55rem; }
+      .theme-toggle, .mobile-menu-toggle { width: 38px; height: 38px; }
+      .nav-actions .btn-primary { min-height: 40px; padding: 0 12px; font-size: 0.84rem; }
+      .nav-actions .btn-icon { display: none; }
+      .eyebrow { white-space: normal; font-size: 0.74rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================
+    NAV — no changes needed here
+  ============================================================ -->
+  <header class="nav">
+    <div class="container nav-inner">
+      <a href="../index.html" class="logo" aria-label="T.vio home">T<span class="logo-accent">.</span>vio</a>
+
+      <nav class="nav-links" id="main-navigation" aria-label="Main navigation">
+        <a href="../index.html#work">Work</a>
+        <a href="../index.html#services">Services</a>
+        <a href="../index.html#process">Process</a>
+        <a href="../index.html#about">About</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="mobile-menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="main-navigation">
+          <svg class="menu-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16" /><path d="M4 12h16" /><path d="M4 17h16" /></svg>
+          <svg class="close-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12" /><path d="M18 6L6 18" /></svg>
+        </button>
+        <button class="theme-toggle" type="button" aria-label="Toggle light mode" aria-pressed="false">
+          <svg class="theme-icon sun-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="4" /><path d="M12 2v2" /><path d="M12 20v2" /><path d="M4.93 4.93l1.41 1.41" /><path d="M17.66 17.66l1.41 1.41" /><path d="M2 12h2" /><path d="M20 12h2" /><path d="M4.93 19.07l1.41-1.41" /><path d="M17.66 6.34l1.41-1.41" />
+          </svg>
+          <svg class="theme-icon moon-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 14.5A8.5 8.5 0 0 1 9.5 3a7 7 0 1 0 11.5 11.5z" /></svg>
+        </button>
+        <button class="btn btn-primary js-contact-trigger" type="button">
+          Start a Project
+          <svg class="btn-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14" /><path d="M13 6l6 6-6 6" /></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ============================================================
+      HERO
+      TODO:
+        - Eyebrow: short context tag e.g. "Client project · Month Year"
+          or "Built for [Hackathon] · Month Year"
+        - h1: Project name on line 1, punchy descriptor on line 2
+        - p: One or two sentences — what it does and for who
+        - "View Screenshots" button href: keep as #screenshots
+        - Meta cards (4 slots): Label + value pairs e.g.
+            Product / "Dashboard SaaS"
+            Client / "Internal tool"
+            Stack / "Next.js / Supabase"
+            Role / "Full-stack"  (or Timeline, AI model, etc.)
+    ============================================================ -->
+    <section class="case-hero">
+      <div class="container">
+        <div class="case-hero-grid">
+          <div>
+            <div class="eyebrow">
+              <span class="dot"></span>
+              <!-- TODO: context tag → e.g. "Client project · Jan 2026" -->
+              [Context tag · Month Year]
+            </div>
+            <h1 class="hero-lockup">
+              <span class="headline-line"><!-- TODO: Project name -->[Project Name]</span>
+              <span class="headline-line"><!-- TODO: Short descriptor -->[Short punchy descriptor.]</span>
+            </h1>
+            <p>
+              <span class="headline-line"><!-- TODO: What it does -->[What the product does and the core value it delivers]</span>
+              <span class="headline-line"><!-- TODO: Who for / key result -->[who it's for or the key outcome it enables.]</span>
+            </p>
+            <div class="hero-actions">
+              <a href="#screenshots" class="btn btn-primary">View Screenshots</a>
+              <a href="../index.html" class="btn btn-secondary">Back to Landing Page</a>
+            </div>
+
+            <div class="meta-strip" aria-label="Project overview">
+              <!-- TODO: Fill in all 4 meta cards. Change labels to fit the project. -->
+              <div class="meta-card">
+                <strong><!-- TODO: label → e.g. "Product" -->Label</strong>
+                <span><!-- TODO: value -->Value</span>
+              </div>
+              <div class="meta-card">
+                <strong><!-- TODO: label → e.g. "Client" or "Event" -->Label</strong>
+                <span><!-- TODO: value -->Value</span>
+              </div>
+              <div class="meta-card">
+                <strong><!-- TODO: label → e.g. "Stack" -->Label</strong>
+                <span><!-- TODO: value e.g. "React / Node.js" -->Value</span>
+              </div>
+              <div class="meta-card">
+                <strong><!-- TODO: label → e.g. "Role" or "AI" -->Label</strong>
+                <span><!-- TODO: value -->Value</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ============================================================
+      THE PROBLEM
+      TODO:
+        - h2: State the pain point as a crisp headline
+        - p: One sentence expanding on the context
+        - Card h3: Name the specific friction
+        - Card p: A bit more detail on why it hurts
+        - List items (3): Specific painful symptoms / consequences
+    ============================================================ -->
+    <section id="problem">
+      <div class="container content-grid">
+        <div class="section-header">
+          <div class="section-kicker">The problem</div>
+          <h2><!-- TODO: Pain point headline -->[Pain point headline.]</h2>
+          <p><!-- TODO: Brief context on the problem -->[One sentence on the problem context.]</p>
+        </div>
+
+        <div class="card content-block">
+          <h3><!-- TODO: Name the friction -->[The core friction]</h3>
+          <p><!-- TODO: Expand on why this hurts -->[More detail on why this is a real problem.]</p>
+          <ul class="card-list">
+            <li><svg class="check-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5" /></svg><!-- TODO: Pain point 1 -->[Specific symptom or consequence]</li>
+            <li><svg class="check-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5" /></svg><!-- TODO: Pain point 2 -->[Specific symptom or consequence]</li>
+            <li><svg class="check-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5" /></svg><!-- TODO: Pain point 3 -->[Specific symptom or consequence]</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ============================================================
+      THE SOLUTION
+      TODO:
+        - h2: How the product solves it
+        - p: One sentence summary of the approach
+        - Card h3: Core product direction label
+        - Card p: What the product actually does
+        - List items (3): Key features / capabilities
+        - Tech stack spans: Add/remove as needed
+    ============================================================ -->
+    <section id="solution">
+      <div class="container content-grid">
+        <div class="section-header">
+          <div class="section-kicker">The solution</div>
+          <h2><!-- TODO: Solution headline -->[How the product solves the problem.]</h2>
+          <p><!-- TODO: One sentence on the approach -->[Brief summary of the product approach.]</p>
+        </div>
+
+        <div class="card content-block">
+          <h3><!-- TODO: e.g. "Core product direction" -->Core product direction</h3>
+          <p><!-- TODO: What it does -->[What the product does and how.]</p>
+          <ul class="card-list">
+            <li><svg class="check-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5" /></svg><!-- TODO: Feature 1 -->[Key feature or capability]</li>
+            <li><svg class="check-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5" /></svg><!-- TODO: Feature 2 -->[Key feature or capability]</li>
+            <li><svg class="check-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5" /></svg><!-- TODO: Feature 3 -->[Key feature or capability]</li>
+          </ul>
+          <!-- TODO: Add/remove tech stack pills as needed -->
+          <div class="tech-stack" aria-label="Technology stack">
+            <span><!-- TODO -->[Framework]</span>
+            <span><!-- TODO -->[Database]</span>
+            <span><!-- TODO -->[Auth / API]</span>
+            <span><!-- TODO -->[Other]</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ============================================================
+      SCREENSHOTS
+      TODO:
+        - h2: Update or keep generic
+        - p: Update or remove placeholder note
+        - Each screenshot-placeholder: Replace the <div class="screenshot-body">
+          with an <img src="..." alt="..."> when screenshots are ready.
+          You can also add/remove screenshot cards as needed.
+          Label them with what each screen shows.
+    ============================================================ -->
+    <section id="screenshots">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-kicker">Screenshots</div>
+          <h2><!-- TODO: e.g. "The product in action." -->The product in action.</h2>
+          <p><!-- TODO: Remove this note when screenshots are added -->Screenshots coming soon — replace placeholders below with real images.</p>
+        </div>
+
+        <div class="screenshots-grid">
+          <!-- TODO: Replace screenshot-body content with <img> tags when ready -->
+          <div class="screenshot-placeholder">
+            <div class="browser-bar"><span class="browser-red"></span><span class="browser-amber"></span><span class="browser-green"></span></div>
+            <div class="screenshot-body"><div><strong><!-- TODO: Screen name -->[Screen name]</strong><p>Replace with a real screenshot.</p></div></div>
+          </div>
+          <div class="screenshot-placeholder">
+            <div class="browser-bar"><span class="browser-red"></span><span class="browser-amber"></span><span class="browser-green"></span></div>
+            <div class="screenshot-body"><div><strong><!-- TODO: Screen name -->[Screen name]</strong><p>Replace with a real screenshot.</p></div></div>
+          </div>
+          <div class="screenshot-placeholder">
+            <div class="browser-bar"><span class="browser-red"></span><span class="browser-amber"></span><span class="browser-green"></span></div>
+            <div class="screenshot-body"><div><strong><!-- TODO: Screen name -->[Screen name]</strong><p>Replace with a real screenshot.</p></div></div>
+          </div>
+          <div class="screenshot-placeholder">
+            <div class="browser-bar"><span class="browser-red"></span><span class="browser-amber"></span><span class="browser-green"></span></div>
+            <div class="screenshot-body"><div><strong><!-- TODO: Screen name -->[Screen name]</strong><p>Replace with a real screenshot.</p></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ============================================================
+      TECHNICAL DEEP DIVE
+      TODO:
+        - h2: Keep or update
+        - p: Keep or update
+        - 4 timeline items — each covers one technical area.
+          Typical sections: Frontend, Backend, Key integrations, Challenges.
+          Change headings to match the project (e.g. "AI pipeline",
+          "Auth flow", "Real-time layer", "Data model").
+    ============================================================ -->
+    <section id="process">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-kicker">Technical deep dive</div>
+          <h2><!-- TODO: e.g. "Architecture, stack, and decisions." -->Architecture, stack, and decisions.</h2>
+          <p><!-- TODO: One sentence framing the section -->The technical thinking behind the build.</p>
+        </div>
+
+        <div class="timeline">
+          <article class="timeline-item">
+            <h3><!-- TODO: e.g. "Frontend architecture" -->[Area 1]</h3>
+            <p><!-- TODO: Explain this layer -->[Describe the frontend setup, key libraries, state management, etc.]</p>
+          </article>
+          <article class="timeline-item">
+            <h3><!-- TODO: e.g. "Backend architecture" -->[Area 2]</h3>
+            <p><!-- TODO: Explain this layer -->[Describe the backend setup, routes, middleware, database, etc.]</p>
+          </article>
+          <article class="timeline-item">
+            <h3><!-- TODO: e.g. "AI / key integration" -->[Area 3]</h3>
+            <p><!-- TODO: Explain this layer -->[Describe any AI, third-party APIs, or notable integrations.]</p>
+          </article>
+          <article class="timeline-item">
+            <h3><!-- TODO: e.g. "Key challenges" -->[Area 4 — Challenges]</h3>
+            <p><!-- TODO: What was hard -->[The trickiest problems tackled and how they were solved.]</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ============================================================
+      IMPACT / OUTCOMES
+      TODO:
+        - h2: Result headline — what changed
+        - p: One sentence on the value delivered
+        - Card h3: "Project outcomes" or something specific
+        - List items (3): Concrete results, improvements, or learnings
+    ============================================================ -->
+    <section id="outcome">
+      <div class="container content-grid">
+        <div class="section-header">
+          <div class="section-kicker">Impact</div>
+          <h2><!-- TODO: Outcome headline -->[What improved or was achieved.]</h2>
+          <p><!-- TODO: One sentence on the value delivered -->[The value this product delivers.]</p>
+        </div>
+
+        <div class="card content-block">
+          <h3>Project outcomes</h3>
+          <ul class="card-list">
+            <li><svg class="check-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5" /></svg><!-- TODO: Outcome 1 -->[Result or improvement]</li>
+            <li><svg class="check-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5" /></svg><!-- TODO: Outcome 2 -->[Result or improvement]</li>
+            <li><svg class="check-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5" /></svg><!-- TODO: Outcome 3 -->[Result or improvement]</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ============================================================
+      CTA — update the headline and subtext to match the project type
+    ============================================================ -->
+    <section class="cta" id="contact">
+      <div class="container">
+        <div class="cta-box">
+          <div class="section-kicker">Start a similar project</div>
+          <h2><!-- TODO: e.g. "Have a workflow that needs automation?" -->[Have a similar problem to solve?]</h2>
+          <p><!-- TODO: One sentence CTA -->[Let's build something focused that your team can actually use.]</p>
+          <div class="hero-actions" style="justify-content: center; margin-bottom: 0;">
+            <button class="btn btn-primary js-contact-trigger" type="button">Start a Project</button>
+            <a href="../index.html" class="btn btn-secondary">Back to Home</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================================================
+    FOOTER — no changes needed
+  ============================================================ -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <a href="../index.html" class="logo footer-logo" aria-label="T.vio home">T<span class="logo-accent">.</span>vio</a>
+        <span>© 2026. All rights reserved.</span>
+      </div>
+      <div class="footer-links">
+        <span>Find us online</span>
+        <div class="footer-socials" aria-label="Social links">
+          <a class="social-link" href="https://www.linkedin.com/in/t-vio-a77339404/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.36 8.25h4.28V23H.36V8.25zM8.06 8.25h4.1v2.02h.06c.57-1.08 1.96-2.22 4.04-2.22 4.32 0 5.12 2.84 5.12 6.54V23h-4.27v-7.46c0-1.78-.03-4.07-2.48-4.07-2.49 0-2.87 1.94-2.87 3.94V23H8.06V8.25z" /></svg>
+          </a>
+          <a class="social-link" href="https://github.com/nuviofreelancers" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56v-2.14c-3.2.7-3.87-1.36-3.87-1.36-.52-1.34-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.73-1.54-2.55-.29-5.23-1.28-5.23-5.68 0-1.25.45-2.28 1.18-3.08-.12-.29-.51-1.46.11-3.04 0 0 .97-.31 3.16 1.18A10.9 10.9 0 0 1 12 6.07c.98 0 1.96.13 2.88.38 2.19-1.49 3.15-1.18 3.15-1.18.63 1.58.23 2.75.11 3.04.74.8 1.18 1.83 1.18 3.08 0 4.42-2.69 5.38-5.25 5.67.41.36.78 1.06.78 2.14v3.15c0 .31.21.68.8.56A11.51 11.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z" /></svg>
+          </a>
+          <a class="social-link" href="https://www.instagram.com/t.vio_ltd" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.75 2h8.5A5.76 5.76 0 0 1 22 7.75v8.5A5.76 5.76 0 0 1 16.25 22h-8.5A5.76 5.76 0 0 1 2 16.25v-8.5A5.76 5.76 0 0 1 7.75 2zm0 2A3.75 3.75 0 0 0 4 7.75v8.5A3.75 3.75 0 0 0 7.75 20h8.5A3.75 3.75 0 0 0 20 16.25v-8.5A3.75 3.75 0 0 0 16.25 4h-8.5z" /><path d="M12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6z" /><path d="M17.5 6.35a1.15 1.15 0 1 1 0 2.3 1.15 1.15 0 0 1 0-2.3z" /></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Contact Modal -->
+  <div class="contact-modal" id="contactModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" hidden>
+    <div class="contact-modal-backdrop js-modal-close"></div>
+    <div class="contact-modal-card">
+      <button class="contact-modal-close js-modal-close" type="button" aria-label="Close">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12" /><path d="M18 6L6 18" /></svg>
+      </button>
+      <div class="contact-modal-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M12 2v4" /><path d="M12 18v4" /><path d="M4.93 4.93l2.83 2.83" /><path d="M16.24 16.24l2.83 2.83" /><path d="M2 12h4" /><path d="M18 12h4" /><path d="M4.93 19.07l2.83-2.83" /><path d="M16.24 7.76l2.83-2.83" /></svg>
+      </div>
+      <div class="contact-modal-kicker">Coming soon</div>
+      <h3 id="modalTitle">This feature is on its way.</h3>
+      <p>Our project intake form isn't live just yet — but we'd love to hear from you. Drop us an email and we'll get back to you shortly.</p>
+      <a href="mailto:nuviofreelancers@gmail.com" class="btn btn-primary contact-modal-btn">
+        <svg viewBox="0 0 24 24" aria-hidden="true" class="btn-icon"><path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z" /><path d="M22 6l-10 7L2 6" /></svg>
+        nuviofreelancers@gmail.com
+      </a>
+    </div>
+  </div>
+
+  <style>
+    .contact-modal { position: fixed; inset: 0; z-index: 200; display: grid; place-items: center; padding: 20px; }
+    .contact-modal[hidden] { display: none; }
+    .contact-modal-backdrop { position: absolute; inset: 0; background: rgba(8, 11, 26, 0.78); backdrop-filter: blur(6px); animation: modalFadeIn 0.2s ease; }
+    body.light-mode .contact-modal-backdrop { background: rgba(14, 18, 40, 0.52); }
+    .contact-modal-card { position: relative; z-index: 1; width: min(480px, 100%); padding: 40px 36px 36px; border-radius: 32px; border: 1px solid var(--border); background: var(--card-strong); box-shadow: var(--shadow); text-align: center; animation: modalSlideUp 0.25s cubic-bezier(0.22, 1, 0.36, 1); }
+    body.light-mode .contact-modal-card { background: #FFFFFF; border-color: rgba(245, 166, 35, 0.18); }
+    @keyframes modalFadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes modalSlideUp { from { opacity: 0; transform: translateY(18px) scale(0.97); } to { opacity: 1; transform: translateY(0) scale(1); } }
+    .contact-modal-close { position: absolute; top: 16px; right: 16px; width: 36px; height: 36px; display: inline-grid; place-items: center; border-radius: 999px; border: 1px solid var(--border); background: transparent; color: var(--muted); cursor: pointer; transition: background 0.2s ease, color 0.2s ease; }
+    .contact-modal-close:hover { background: rgba(255, 255, 255, 0.07); color: var(--text); }
+    .contact-modal-close svg { width: 14px; height: 14px; stroke: currentColor; stroke-width: 2.5; fill: none; stroke-linecap: round; }
+    .contact-modal-icon { width: 56px; height: 56px; display: grid; place-items: center; border-radius: 20px; margin: 0 auto 20px; background: linear-gradient(135deg, var(--color-orange-dim), var(--color-green-dim)); border: 1px solid rgba(245, 166, 35, 0.22); color: var(--primary); }
+    .contact-modal-icon svg { width: 24px; height: 24px; stroke: currentColor; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; animation: modalIconSpin 10s linear infinite; }
+    @keyframes modalIconSpin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    .contact-modal-kicker { color: var(--primary); font-size: 0.76rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 10px; }
+    .contact-modal-card h3 { font-size: 1.55rem; letter-spacing: -0.025em; margin-bottom: 12px; }
+    .contact-modal-card p { color: var(--muted-2); font-size: 0.97rem; line-height: 1.6; max-width: 360px; margin: 0 auto 28px; }
+    .contact-modal-btn { width: 100%; font-size: 0.9rem; letter-spacing: 0.01em; }
+  </style>
+
+  <script src="../script.js"></script>
+  <script>
+    const modal = document.getElementById('contactModal');
+    function openModal() { modal.hidden = false; document.body.style.overflow = 'hidden'; modal.querySelector('.contact-modal-close').focus(); }
+    function closeModal() { modal.hidden = true; document.body.style.overflow = ''; }
+    document.querySelectorAll('.js-contact-trigger').forEach(btn => btn.addEventListener('click', openModal));
+    document.querySelectorAll('.js-modal-close').forEach(el => el.addEventListener('click', closeModal));
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !modal.hidden) closeModal(); });
+  </script>
+</body>
+</html>
