@@ -8,10 +8,10 @@
 
 :root {
   /* Core Palette */
-  --color-navy: #0D0F2B;
-  --color-navy-mid: #141736;
-  --color-navy-card: #181D3A;
-  --color-preview-dark: #0F1230;
+  --color-navy: #06091e;
+  --color-navy-mid: #0e0d2e;
+  --color-navy-card: #130f38;
+  --color-preview-dark: #09091f;
 
   --color-orange: #F5A623;
   --color-green: #6EE24A;
@@ -22,10 +22,10 @@
   --color-green-dim: rgba(110, 226, 74, 0.12);
 
   /* Dark Mode Support */
-  --color-muted-white: rgba(180, 195, 255, 0.55);
-  --color-soft-white: rgba(210, 220, 255, 0.80);
-  --color-faint-white: rgba(160, 180, 255, 0.22);
-  --color-navy-line: rgba(130, 160, 255, 0.10);
+  --color-muted-white: rgba(195, 180, 255, 0.55);
+  --color-soft-white: rgba(220, 212, 255, 0.80);
+  --color-faint-white: rgba(160, 140, 255, 0.18);
+  --color-navy-line: rgba(120, 80, 255, 0.12);
 
   /* Dark Mode Tokens */
   --bg: var(--color-navy);
@@ -76,9 +76,9 @@ body.light-mode {
 body {
   font-family: var(--font-body);
   background:
-    radial-gradient(circle at 10% 0%, var(--color-green-dim), transparent 34%),
-    radial-gradient(circle at 88% 12%, var(--color-orange-dim), transparent 28%),
-    var(--bg);
+    radial-gradient(ellipse at 10% 0%, rgba(100, 55, 210, 0.42), transparent 38%),
+    radial-gradient(ellipse at 88% 12%, var(--color-orange-dim), transparent 28%),
+    linear-gradient(160deg, #1a1040 0%, #080d2a 55%, var(--bg) 100%);
   color: var(--text);
   line-height: 1.6;
   overflow-x: hidden;
@@ -93,6 +93,15 @@ body.light-mode {
     radial-gradient(circle at 92% 10%, rgba(110, 226, 74, 0.14), transparent 28%),
     radial-gradient(circle at 50% 100%, rgba(245, 166, 35, 0.08), transparent 30%),
     linear-gradient(180deg, #FFF8EE 0%, #FFFDF8 100%);
+}
+
+/* Dark Mode Nav — purple tinted glass */
+.nav {
+  background: rgba(42, 22, 100, 0.60);
+  border-bottom: 1px solid rgba(120, 80, 255, 0.18);
+  box-shadow: 0 8px 32px rgba(10, 6, 40, 0.45);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
 }
 
 body.light-mode .nav {
