@@ -8,10 +8,10 @@
 
 :root {
   /* Core Palette */
-  --color-navy: #080B1A;
-  --color-navy-mid: #0E1228;
-  --color-navy-card: #111629;
-  --color-preview-dark: #0A0D1F;
+  --color-navy: #0D0F2B;
+  --color-navy-mid: #141736;
+  --color-navy-card: #181D3A;
+  --color-preview-dark: #0F1230;
 
   --color-orange: #F5A623;
   --color-green: #6EE24A;
@@ -22,10 +22,10 @@
   --color-green-dim: rgba(110, 226, 74, 0.12);
 
   /* Dark Mode Support */
-  --color-muted-white: rgba(255, 255, 255, 0.45);
-  --color-soft-white: rgba(255, 255, 255, 0.72);
-  --color-faint-white: rgba(255, 255, 255, 0.18);
-  --color-navy-line: rgba(255, 255, 255, 0.07);
+  --color-muted-white: rgba(180, 195, 255, 0.55);
+  --color-soft-white: rgba(210, 220, 255, 0.80);
+  --color-faint-white: rgba(160, 180, 255, 0.22);
+  --color-navy-line: rgba(130, 160, 255, 0.10);
 
   /* Dark Mode Tokens */
   --bg: var(--color-navy);
