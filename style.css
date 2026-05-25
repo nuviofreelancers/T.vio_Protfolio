@@ -205,16 +205,7 @@ body.light-mode .moon-icon { display: block; }
   pointer-events: none;
 }
 
-.hero::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: radial-gradient(var(--color-faint-white) 1px, transparent 1px);
-  background-size: 26px 26px;
-  mask-image: radial-gradient(circle at 50% 20%, black, transparent 68%);
-  pointer-events: none;
-  opacity: 0.45;
-}
+
 
 .hero-grid {
   position: relative;
@@ -441,15 +432,7 @@ h2 {
     linear-gradient(135deg, rgba(17, 22, 41, 0.96), rgba(10, 13, 31, 0.94));
 }
 
-.about-card::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: radial-gradient(var(--color-faint-white) 1px, transparent 1px);
-  background-size: 24px 24px;
-  mask-image: radial-gradient(circle at 50% 42%, black, transparent 72%);
-  opacity: 0.32;
-}
+
 
 .about-card::after {
   content: "";
